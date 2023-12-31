@@ -9,6 +9,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Accounts from '../pages/Accounts';
+import City from '../pages/City';
 import Country from '../pages/Country';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path='/accounts' element={<Accounts />} />
         <Route path='/country' element={<Country />} />
+        <Route path='/:countryName' element={<City />} />
       </Route>
     )
   );

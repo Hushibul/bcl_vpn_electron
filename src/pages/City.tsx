@@ -1,12 +1,16 @@
 import React from 'react';
-import { ArrowLeftShort, ArrowRight, Check } from 'react-bootstrap-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { countries } from '../constants/country';
+import { ArrowLeftShort } from 'react-bootstrap-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { citiesType } from '../constants/country';
 
-const Country: React.FC = () => {
+const City: React.FC = () => {
   const navigate = useNavigate();
-  const pathName = useLocation().pathname;
-  console.log(pathName);
+  const location = useLocation();
+  //   const cities = location.state.cities;
+  //   const imgPath = location.state.imgPath;
+  //   const contryName = location.state.country
+
+  const { cities, imgPath, countryName } = location.state;
 
   return (
     <div className='container pt-3 basis-[calc(100%-200px)]'>
@@ -16,7 +20,7 @@ const Country: React.FC = () => {
         </span>
       </button>
 
-      <div className='mt-2'>
+      {/* <div className='mt-2'>
         <h2 className='text-white text-lg'>Virtual location</h2>
 
         <input
@@ -24,6 +28,15 @@ const Country: React.FC = () => {
           className='px-3 py-2 text-sm bg-sidebar rounded w-full mt-3 placeholder:text-gray-500 focus-within:outline-none'
           placeholder='Search Locations'
         />
+      </div> */}
+
+      <div className='mt-2 flex flex-col gap-y-2 items-center'>
+        <img className='w-16 h-auto' src={imgPath} alt={countryName} />
+        <h3 className=' font-bold'>{countryName}</h3>
+        <span className='block text-sm'>
+          {cities?.length}
+          {cities.location > 1 ? ' location' : ' locations'}
+        </span>
       </div>
 
       <div className='mt-3'>
@@ -32,49 +45,30 @@ const Country: React.FC = () => {
         <div className='flex items-center justify-between py-2 px-2 hover:bg-sidebar mt-3 rounded-sm'>
           <div className='flex gap-2 items-center'>
             <div className='w-10 h-auto overflow-hidden object-cover'>
-              <img src='./images/country/flag-of-Japan.png' />
+              <img src={imgPath} />
             </div>
-            <span className='text-sm font-semibold'>Auto</span>
+            <span className='text-sm font-semibold'>{countryName}</span>
           </div>
-          <button className='rounded-full p-1 bg-sky-600'>
-            <Check size={20} />
-          </button>
         </div>
       </div>
 
       <ul className='mt-3'>
-        <li className='text-sm mb-2'>All locations({countries?.length})</li>
-        {countries.map((item) => (
+        <li className='text-sm mb-2'>Cites({cities?.length})</li>
+        {cities.map((item: citiesType) => (
           <li
             className='flex items-center justify-between p-2 rounded hover:bg-sidebar group'
             key={item?.id}
           >
             <div className='flex items-center gap-x-3'>
               <div className='w-10 h-auto'>
-                <img src={item?.imgPath} alt={item?.name} />
+                <img src={imgPath} alt={item?.name} />
               </div>
               <span className='block'>{item?.name}</span>
             </div>
 
-            {!item?.cities && (
-              <button className='text-sky-600 font-semibold hidden group-hover:block'>
-                Connect
-              </button>
-            )}
-
-            {item?.path && (
-              <Link
-                className='hidden group-hover:block'
-                to={item?.path}
-                state={{
-                  cities: item?.cities,
-                  imgPath: item?.imgPath,
-                  countryName: item?.name,
-                }}
-              >
-                <ArrowRight width={20} height={20} />
-              </Link>
-            )}
+            <button className='text-sky-600 font-semibold hidden group-hover:block'>
+              Connect
+            </button>
           </li>
         ))}
       </ul>
@@ -82,4 +76,4 @@ const Country: React.FC = () => {
   );
 };
 
-export default Country;
+export default City;

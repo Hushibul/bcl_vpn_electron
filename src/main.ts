@@ -28,13 +28,16 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+// app.commandLine.appendSwitch('ignore-gpu-blacklist');
+// app.commandLine.appendSwitch('disable-gpu');
+// app.commandLine.appendSwitch('disable-gpu-compositing');
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
