@@ -6,9 +6,6 @@ import { citiesType } from '../constants/country';
 const City: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  //   const cities = location.state.cities;
-  //   const imgPath = location.state.imgPath;
-  //   const contryName = location.state.country
 
   const { cities, imgPath, countryName } = location.state;
 
@@ -19,16 +16,6 @@ const City: React.FC = () => {
           <ArrowLeftShort className='mx-auto' size={20} />
         </span>
       </button>
-
-      {/* <div className='mt-2'>
-        <h2 className='text-white text-lg'>Virtual location</h2>
-
-        <input
-          type='search'
-          className='px-3 py-2 text-sm bg-sidebar rounded w-full mt-3 placeholder:text-gray-500 focus-within:outline-none'
-          placeholder='Search Locations'
-        />
-      </div> */}
 
       <div className='mt-2 flex flex-col gap-y-2 items-center'>
         <img className='w-16 h-auto' src={imgPath} alt={countryName} />
@@ -61,7 +48,7 @@ const City: React.FC = () => {
           >
             <div className='flex items-center gap-x-3'>
               <div className='w-10 h-auto'>
-                <img src={imgPath} alt={item?.name} />
+                <img src={imgPath} alt={countryName} />
               </div>
               <span className='block'>{item?.name}</span>
             </div>

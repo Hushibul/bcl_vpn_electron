@@ -34,7 +34,7 @@ const Sidebar = () => {
       id: 3,
       name: 'About',
       icon: <InfoCircleFill size={25} />,
-      path: '/country',
+      path: '/about',
     },
     {
       id: 4,
