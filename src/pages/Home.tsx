@@ -1,14 +1,15 @@
 import React from 'react';
 import { ArrowRight, Power } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import { createNotifications } from '../utils/utils';
 
 const Home: React.FC = () => {
   const connectVpn = () => {
-    new Notification('BCL_VPN', { body: 'VPN Connection Successfully' });
+    createNotifications('VPN is Connected');
   };
 
   return (
-    <div className='container flex flex-col items-center basis-[calc(100%-200px)]'>
+    <div className='container flex flex-col items-center basis-[calc(100%-200px)] mx-auto'>
       <div className='h-3/4 flex items-center'>
         <button
           onClick={connectVpn}
@@ -17,13 +18,22 @@ const Home: React.FC = () => {
           <Power size={75} />
         </button>
       </div>
-      <div className='w-full h-1/4 flex items-center'>
+      <div className='w-full gap-x-4 h-1/4 flex items-center'>
         <Link to={'/country'} className='py-3 px-4 bg-sidebar rounded w-1/2'>
           <span className='block text-left text-sm font-light'>
             Virtual Location
           </span>
           <div className='mt-2 flex justify-between items-center'>
             <span className='block text-sm'>Auto</span>
+            <span>
+              <ArrowRight size={16} />
+            </span>
+          </div>
+        </Link>
+        <Link to={'#'} className='py-3 px-4 bg-sidebar rounded w-1/2'>
+          <span className='block text-left text-sm font-light'>Daily Data</span>
+          <div className='mt-2 flex justify-between items-center'>
+            {/* <span className='block text-sm'>Auto</span> */}
             <span>
               <ArrowRight size={16} />
             </span>

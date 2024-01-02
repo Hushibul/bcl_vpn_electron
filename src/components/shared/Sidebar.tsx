@@ -51,7 +51,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className='w-[200px] h-screen bg-sidebar pt-16'>
+    <aside className='w-[200px] h-[calc(100vh-48px)] bg-sidebar pt-16 sticky top-12'>
       <ul className='flex flex-col'>
         {menu.map((item: sidebarItemType) => (
           <li key={item?.id}>

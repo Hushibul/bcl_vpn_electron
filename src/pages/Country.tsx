@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { ArrowLeftShort, ArrowRight, Check } from 'react-bootstrap-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { countries } from '../constants/country';
 
 const Country: React.FC = () => {
   const navigate = useNavigate();
-  const pathName = useLocation().pathname;
-  console.log(pathName);
+  const [filteredCountries, setFilteredCountries] = useState(countries);
+
+  const searchCountry = (event: ChangeEvent<HTMLInputElement>) => {
+    const result = countries.filter((country) =>
+      country?.name
+        .toLocaleLowerCase()
+        .includes(event?.target?.value.toLocaleLowerCase())
+    );
+
+    setFilteredCountries(result);
+  };
 
   return (
-    <div className='container pt-3 basis-[calc(100%-200px)]'>
+    <div className='container pt-3 basis-[calc(100%-200px)] mx-auto'>
       <button onClick={() => navigate(-1)}>
-        <span className='bg-sidebar p-1 rounded-sm block w-8'>
+        <span className='bg-sidebar p-1 rounded-sm block w-8 h-8'>
           <ArrowLeftShort className='mx-auto' size={20} />
         </span>
       </button>
@@ -20,6 +29,7 @@ const Country: React.FC = () => {
         <h2 className='text-white text-lg'>Virtual location</h2>
 
         <input
+          onChange={(event) => searchCountry(event)}
           type='search'
           className='px-3 py-2 text-sm bg-sidebar rounded w-full mt-3 placeholder:text-gray-500 focus-within:outline-none'
           placeholder='Search Locations'
@@ -42,9 +52,11 @@ const Country: React.FC = () => {
         </div>
       </div>
 
-      <ul className='mt-3'>
-        <li className='text-sm mb-2'>All locations({countries?.length})</li>
-        {countries.map((item) => (
+      <ul className='mt-3 overflow-y-auto'>
+        <li className='text-sm mb-2'>
+          All locations({filteredCountries?.length})
+        </li>
+        {filteredCountries.map((item) => (
           <li
             className='flex items-center justify-between p-2 rounded hover:bg-sidebar group'
             key={item?.id}
@@ -62,7 +74,7 @@ const Country: React.FC = () => {
               </button>
             )}
 
-            {item?.path && (
+            {item?.cities && (
               <Link
                 className='hidden group-hover:block'
                 to={item?.path}

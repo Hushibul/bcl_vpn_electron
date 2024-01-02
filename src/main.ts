@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -9,12 +9,15 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 860,
+    height: 640,
+    minWidth: 600,
+    minHeight: 600,
     webPreferences: {
       preload: path.join(__dirname, './preload.js'),
       nodeIntegration: true,
     },
+    frame: false,
     autoHideMenuBar: true,
   });
 
@@ -27,14 +30,33 @@ const createWindow = () => {
     );
   }
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-};
+  // Window Manipulation
+  ipcMain.on('close-app', () => {
+    mainWindow.close();
+  });
+  ipcMain.on('minimize-app', () => {
+    mainWindow.minimize();
+  });
+  ipcMain.on('maximize-restore-app', () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.restore();
+    } else {
+      mainWindow.maximize();
+    }
+    return mainWindow.isMaximized();
+  });
+  ipcMain.handle('max-restore-state', () => {
+    return mainWindow.isMaximized();
+  });
 
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
+};
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
 // app.commandLine.appendSwitch('ignore-gpu-blacklist');
 // app.commandLine.appendSwitch('disable-gpu');
 // app.commandLine.appendSwitch('disable-gpu-compositing');

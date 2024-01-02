@@ -10,7 +10,7 @@ const City: React.FC = () => {
   const { cities, imgPath, countryName } = location.state;
 
   return (
-    <div className='container pt-3 basis-[calc(100%-200px)]'>
+    <div className='container pt-3 basis-[calc(100%-200px)] mx-auto'>
       <button onClick={() => navigate(-1)}>
         <span className='bg-sidebar p-1 rounded-sm block w-8'>
           <ArrowLeftShort className='mx-auto' size={20} />

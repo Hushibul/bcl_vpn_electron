@@ -1,13 +1,17 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/shared/Sidebar';
+import Titlebar from '../components/shared/Titlebar';
 
 const Layout: React.FC = () => {
   return (
-    <div className='flex'>
-      <Sidebar />
-      <Outlet />
-    </div>
+    <>
+      <Titlebar />
+      <div className='flex'>
+        <Sidebar />
+        <Outlet />
+      </div>
+    </>
   );
 };
 
